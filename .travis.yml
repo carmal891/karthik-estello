@@ -1,0 +1,13 @@
+dist: xenial
+env:
+  - DOCKER_USERNAME=carmaldocker
+  - DOCKER_PASSWORD=C@rm@l123
+  - DOCKER_IMAGETAG=carmaldocker/estello
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t $DOCKER_IMAGETAG .
+      - docker images
+      - docker push $DOCKER_IMAGETAG
