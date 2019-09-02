@@ -6,6 +6,7 @@ services:
 before_install:
 - docker build --no-cache -t carmaldocker/estello .
 - docker-compose up -d
+- docker ps
 
 script:
   - curl 127.0.0.1:80
