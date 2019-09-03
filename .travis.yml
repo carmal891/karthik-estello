@@ -8,8 +8,7 @@ env:
     - SERVER_IP_ADDRESS=207.246.89.240
     - SERVER_USERNAME=root
     - DOCKER_IMAGE=carmaldocker/etsello
-    - DEPLOY_DIR=/root/etsello-deploy-scripts
-	
+    - DEPLOY_DIR=/root/etsello-deploy-scripts	
 before_install:
 # setup the key for deployment
 - openssl aes-256-cbc -K $encrypted_a67e4c47b36a_key -iv $encrypted_a67e4c47b36a_iv
