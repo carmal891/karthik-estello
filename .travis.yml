@@ -16,7 +16,7 @@ before_install:
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 #test ssh connection
-- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
+- ssh -i ./deploy_key root@207.246.89.240 pwd
 # docker build steps
 - docker build --no-cache -t carmaldocker/estello .
 - docker-compose up -d
