@@ -17,7 +17,7 @@ before_install:
 #test ssh connection
 - ssh -i ./deploy_key root@207.246.89.240 pwd
 # docker build steps
-- docker build --no-cache -t carmaldocker/estello .
+- docker build --no-cache -t carmaldocker/etsello .
 - docker-compose up -d
 - docker ps
 
@@ -25,7 +25,9 @@ script:
 - curl 127.0.0.1:80
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker images
-- docker push carmaldocker/estello
+- docker push carmaldocker/etsello
 
 after_success:
-- scp -i ./deploy_key docker-compose.yaml root@207.246.89.240:~/
+- scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:~/itsy-deploy-scripts
+- ssh -i ./deploy_key root@207.246.89.240 chmod +x ~/itsy-deploy-scripts/etsello-deploy.sh
+- ssh -i ./deploy_key root@207.246.89.240 ~/itsy-deploy-scripts/etsello-deploy.sh

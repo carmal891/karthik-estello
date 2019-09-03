@@ -9,7 +9,7 @@ services:
     volumes:
       - ./data:/data/db
   etsello:
-    image: carmaldocker/estello
+    image: carmaldocker/etsello
     restart: always
     ports:
       - 80:80
