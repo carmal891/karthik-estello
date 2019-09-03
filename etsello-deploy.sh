@@ -3,6 +3,7 @@
 
 DOCKER_IMAGE=$1
 BUILD_DIR=$2
+
 executor()
 {
 cd $BUILD_DIR
