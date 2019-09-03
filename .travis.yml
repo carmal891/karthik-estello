@@ -31,4 +31,4 @@ script:
 after_success:
 - scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:/root/itsy-deploy-scripts
 - ssh -i ./deploy_key root@207.246.89.240 chmod +x /root/itsy-deploy-scripts/etsello-deploy.sh
-- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh carmaldocker/etsello
+- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE

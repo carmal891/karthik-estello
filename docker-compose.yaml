@@ -3,14 +3,14 @@ version: '3.1'
 services:
   mongo:
     image: mongo
-    restart: always
+    restart: on-failure
     ports:
       - "27017"
     volumes:
       - ./data:/data/db
   etsello:
     image: carmaldocker/etsello
-    restart: always
+    restart: on-failure
     ports:
       - 80:80
     environment:
