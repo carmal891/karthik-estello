@@ -3,6 +3,7 @@ services:
 - docker
 env:
 - SERVER_IP_ADDRESS=207.246.89.240
+
 before_install:
 # setup the key for deployment
 - openssl aes-256-cbc -K $encrypted_a67e4c47b36a_key -iv $encrypted_a67e4c47b36a_iv
@@ -12,11 +13,12 @@ before_install:
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 #test ssh connection
-ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
+- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
 # docker build steps
 - docker build --no-cache -t carmaldocker/estello .
 - docker-compose up -d
 - docker ps
+
 script:
 - curl 127.0.0.1:80
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
