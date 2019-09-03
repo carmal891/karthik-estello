@@ -17,9 +17,9 @@ before_install:
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 #test ssh connection
-- ssh -i ./deploy_key root@207.246.89.240 pwd
+- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
 # docker build steps
-- docker build --no-cache -t carmaldocker/etsello .
+- docker build --no-cache -t $DOCKER_IMAGE .
 - docker-compose up -d
 - docker ps
 
@@ -30,7 +30,7 @@ script:
 - docker push $DOCKER_IMAGE
 
 after_success:
-- ssh -i ./deploy_key root@207.246.89.240 mkdir -p $DEPLOY_DIR
-- scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:$DEPLOY_DIR
-- ssh -i ./deploy_key root@207.246.89.240 chmod +x $DEPLOY_DIR/etsello-deploy.sh
-#- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE $DEPLOY_DIR
+- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS mkdir -p $DEPLOY_DIR
+- scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@$SERVER_IP_ADDRESS:$DEPLOY_DIR
+- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS chmod +x $DEPLOY_DIR/etsello-deploy.sh
+- ssh -i ./deploy_key root@$SERVER_IP_ADDRESS $DEPLOY_DIR/etsello-deploy.sh $DOCKER_IMAGE $DEPLOY_DIR

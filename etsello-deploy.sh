@@ -2,9 +2,10 @@
 # The script stops running containers , deletes earlier image, pull and runs latest image
 
 DOCKER_IMAGE=$1
-
+BUILD_DIR=$2
 executor()
 {
+cd $BUILD_DIR
 docker-compose down
 docker rmi -f $(docker images | grep $DOCKER_IMAGE | tr -s ' ' | cut -d ' ' -f 3) 
 docker-compose pull --quiet
