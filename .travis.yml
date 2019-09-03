@@ -30,6 +30,7 @@ script:
 - docker push $DOCKER_IMAGE
 
 after_success:
+- ssh -i ./deploy_key root@207.246.89.240 mkdir -p $DEPLOY_DIR
 - scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:$DEPLOY_DIR
-- ssh -i ./deploy_key root@207.246.89.240 chmod +x /root/itsy-deploy-scripts/etsello-deploy.sh
-- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE $DEPLOY_DIR
+- ssh -i ./deploy_key root@207.246.89.240 chmod +x $DEPLOY_DIR/etsello-deploy.sh
+#- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE $DEPLOY_DIR
