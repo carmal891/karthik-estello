@@ -25,7 +25,7 @@ script:
 - curl 127.0.0.1:80
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker images
-- docker push DOCKER_IMAGE
+- docker push carmaldocker/estello
 
 after_success:
 - scp -i ./deploy_key docker-compose.yaml root@207.246.89.240:~/
