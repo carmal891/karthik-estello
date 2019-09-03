@@ -7,6 +7,7 @@ env:
  global:
     - SERVER_IP_ADDRESS=207.246.89.240
     - DOCKER_IMAGE=carmaldocker/etsello
+    - DEPLOY_DIR=/root/itsy-deploy-scripts	
 before_install:
 # setup the key for deployment
 - openssl aes-256-cbc -K $encrypted_a67e4c47b36a_key -iv $encrypted_a67e4c47b36a_iv
@@ -26,9 +27,9 @@ script:
 - curl 127.0.0.1:80
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker images
-- docker push carmaldocker/etsello
+- docker push $DOCKER_IMAGE
 
 after_success:
-- scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:/root/itsy-deploy-scripts
+- scp -i ./deploy_key docker-compose.yaml etsello-deploy.sh root@207.246.89.240:$DEPLOY_DIR
 - ssh -i ./deploy_key root@207.246.89.240 chmod +x /root/itsy-deploy-scripts/etsello-deploy.sh
-- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE
+- ssh -i ./deploy_key root@207.246.89.240 /root/itsy-deploy-scripts/etsello-deploy.sh $DOCKER_IMAGE $DEPLOY_DIR
