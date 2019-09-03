@@ -18,7 +18,7 @@ before_install:
 #test ssh connection
 - ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
 # docker build steps
-- docker build --no-cache -t $DOCKER_IMAGE .
+- docker build --no-cache -t carmaldocker/estello .
 - docker-compose up -d
 - docker ps
 
