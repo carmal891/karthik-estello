@@ -1,8 +1,11 @@
 language: go
+
 services:
 - docker
+
 env:
 - SERVER_IP_ADDRESS=207.246.89.240
+- DOCKER_IMAGE=carmaldocker/estello
 
 before_install:
 # setup the key for deployment
@@ -15,7 +18,7 @@ before_install:
 #test ssh connection
 - ssh -i ./deploy_key root@$SERVER_IP_ADDRESS pwd
 # docker build steps
-- docker build --no-cache -t carmaldocker/estello .
+- docker build --no-cache -t $DOCKER_IMAGE .
 - docker-compose up -d
 - docker ps
 
@@ -23,4 +26,7 @@ script:
 - curl 127.0.0.1:80
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker images
-- docker push carmaldocker/estello
+- docker push DOCKER_IMAGE
+
+after_success:
+- scp -i ./deploy_key docker-compose.yaml root@$SERVER_IP_ADDRESS:~/
