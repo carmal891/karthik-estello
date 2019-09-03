@@ -5,7 +5,6 @@ services:
 
 env:
 - SERVER_IP_ADDRESS=207.246.89.240
-- DOCKER_IMAGE=carmaldocker/estello
 
 before_install:
 # setup the key for deployment
@@ -29,4 +28,4 @@ script:
 - docker push DOCKER_IMAGE
 
 after_success:
-- scp -i ./deploy_key docker-compose.yaml root@$SERVER_IP_ADDRESS:~/
+- scp -i ./deploy_key docker-compose.yaml root@207.246.89.240:~/
